@@ -6,7 +6,7 @@ Score::Score(sf::Font &font, unsigned int size) : sf::Text("Score: 0", font, siz
 }
 void Score::IncrementScore()
 {
-	this->value += 1;
+	this->value += 100;
 }
 
 void Score::Update()

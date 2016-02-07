@@ -20,6 +20,5 @@ private:
 	sf::Font* font;
 	bool paused, enterKey;
 
-	Entity test;
-	EntityManager manager;
+	EntityManager* manager;
 };
