@@ -1,16 +1,17 @@
 #pragma once
 
 #include "entity.h"
-#include "score.h"
+#include "entityManager.h"
 
 extern float direction;
+extern int ammo;
 
 class Enemy : public Entity
 {
 public:
-	Enemy(Score* score, float x, float y);
+	Enemy(EntityManager* manager, float x, float y);
 	void Update(sf::RenderWindow* window);
 	void Collision(Entity* entity);
 private:
-	Score* score;
+	EntityManager* manager;
 };

@@ -1,8 +1,10 @@
 #include "enemy.h"
+#include "bullet.h"
 
 float direction = 0.75f;
+int ammo = 5;
 
-Enemy::Enemy(Score* score, float x, float y)
+Enemy::Enemy(EntityManager* manager, float x, float y)
 {
 	this->active = 1;
 	this->groupID = 2;
@@ -10,11 +12,22 @@ Enemy::Enemy(Score* score, float x, float y)
 
 	this->setPosition(x - this->getGlobalBounds().width / 2, y - this->getGlobalBounds().height);
 
-	this->score = score;
+	this->manager = manager;
 }
 
 void Enemy::Update(sf::RenderWindow* window)
 {
+	if (ammo > 0)
+	{
+		int chance = rand() % 100 + 1;
+		if (chance < 2)
+		{
+			this->manager->Add("bullet", new Bullet(this->getPosition().x, this->getPosition().y + 32, 1, false));
+			ammo -= 1;
+		}
+	}
+
+
 	if (this->velocity.x != direction)
 	{
 		this->move(0, 32);
@@ -35,13 +48,4 @@ void Enemy::Update(sf::RenderWindow* window)
 
 void Enemy::Collision(Entity* entity)
 {
-	switch (entity->GroupID())
-	{
-	case 0:
-		break;
-	case 3:
-		this->Destroy();
-		this->score->IncrementScore();
-		break;
-	}
 }

@@ -18,10 +18,16 @@ void mainGame::Initialize(sf::RenderWindow* window)
 	this->enterKey = false;
 
 	manager = new EntityManager();
-	
-	this->manager->Add("ship", new Ship(this->manager, window->getSize().x / 2, window->getSize().y));
-	this->manager->Add("enemy", new Enemy(this->score, 16, 32));
-	this->manager->Add("enemy", new Enemy(this->score, 16 + 64, 32));
+
+	this->manager->Add("ship", new Ship(this->score, this->manager, window->getSize().x / 2, window->getSize().y));
+
+	for (int y = 0; y < 5; y += 1)
+	{
+		for (int x = 0; x < 10; x += 1)
+		{
+			this->manager->Add("enemy", new Enemy(this->manager, 16 + 48 * x, 32 + 48 * y));
+		}
+	}
 }
 void mainGame::Update(sf::RenderWindow* window)
 {
@@ -31,7 +37,7 @@ void mainGame::Update(sf::RenderWindow* window)
 		{
 			this->paused = false;
 		}
-		
+
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
 		{
@@ -52,7 +58,7 @@ void mainGame::Render(sf::RenderWindow* window)
 {
 	this->manager->Render(window);
 	window->draw(*this->score);
-	if(this->paused)
+	if (this->paused)
 	{
 		window->draw(*this->pausedText);
 	}

@@ -38,10 +38,14 @@ void EntityManager::Update(sf::RenderWindow* window)
 		{
 			if (iterator.first != iterator2.first)
 			{
-				if (iterator.second->CheckCollision(iterator2.second))
+				if (iterator.second->GroupID() > 2)
 				{
-					iterator.second->Collision(iterator2.second);
+					if (iterator.second->CheckCollision(iterator2.second))
+					{
+						iterator.second->Collision(iterator2.second);
+					}
 				}
+				
 			}
 		}
 		switch (iterator.second->Active())

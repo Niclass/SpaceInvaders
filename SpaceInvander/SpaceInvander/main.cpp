@@ -35,7 +35,7 @@ int main()
 		{
 			window.close();
 		}
-		Sleep(3);
+		Sleep(5);
 	}
 
 	return 0;
